@@ -12,7 +12,7 @@ Start by cloning the repository.
 
 ### Database
 
-To start the project, you need a MySQL database; a simple Docker compose file is provided.
+To start the project, you need a MySQL database, a simple Docker compose file is provided.
 
 To run Docker, you will need to add the following environment variables to your .env file:
 
@@ -70,3 +70,25 @@ Start the server
 ```
 
 Now you can access the application at `http://localhost:5173`
+
+## Cli
+
+To add a product from the cli use
+
+```bash
+  php artisan product:create {name} {description} {price} {image url} {--c|categories=*}
+```
+
+Example
+
+```bash
+  php artisan product:create "Product 1" "Description" "341" "example.com/image.jpeg"
+```
+
+## Tests
+
+To run the Tests
+
+```bash
+  php artisan test
+```
