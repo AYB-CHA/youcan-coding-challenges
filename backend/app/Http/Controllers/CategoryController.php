@@ -10,7 +10,7 @@ use Illuminate\Validation\Rule;
 class CategoryController extends Controller
 {
     public function __construct(
-        private CategoryRepositoryInterface $categoryRepository
+        private CategoryRepositoryInterface $categoryRepository,
     ) {
     }
 
