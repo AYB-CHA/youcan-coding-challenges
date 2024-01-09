@@ -1,16 +1,20 @@
 <script setup lang="ts">
 import type { CategoryType } from '@/types/app';
 
-import { AxiosError } from 'axios';
-
-import { useFetch } from '@/composables/useFetch';
-import { ref } from 'vue';
-
 import Button from './ui/Button.vue';
 import axios from '@/lib/axios';
 
-const { data: categories, mutate } = useFetch<CategoryType[]>("/categories");
+import { AxiosError } from 'axios';
+import { ref } from 'vue';
 
+
+const emit = defineEmits([
+    "categories-changed"
+]);
+
+defineProps<{
+    categories: CategoryType[]
+}>();
 
 const categoryName = ref("");
 const parentCategory = ref(-1);
@@ -24,7 +28,7 @@ const createCategory = async () => {
             name: categoryName.value,
             parent_id: parentCategory.value !== -1 ? parentCategory.value : null,
         });
-        mutate();
+        emit("categories-changed");
     } catch (e) {
         let message = "Something went wrong.";
         if (e instanceof AxiosError)
