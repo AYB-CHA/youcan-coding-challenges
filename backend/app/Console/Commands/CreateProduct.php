@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Interfaces\ProductRepositoryInterface;
+use App\Services\Validation\Contracts\ProductValidationServiceInterface;
 use Illuminate\Contracts\Console\PromptsForMissingInput;
+use App\Interfaces\ProductRepositoryInterface;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Console\Command;
 
 class CreateProduct extends Command implements PromptsForMissingInput
@@ -22,6 +24,13 @@ class CreateProduct extends Command implements PromptsForMissingInput
      */
     protected $description = 'Create a new product';
 
+    public function __construct(
+        private ProductValidationServiceInterface $productValidationService,
+
+    ) {
+        parent::__construct();
+    }
+
     /**
      * Execute the console command.
      */
@@ -35,6 +44,16 @@ class CreateProduct extends Command implements PromptsForMissingInput
         ];
 
         $categories = $this->option('categories');
+
+        try {
+            $this->productValidationService->createProductValidation([
+                ...$product_info,
+                'categories' => $categories,
+            ]);
+        } catch (ValidationException $error) {
+            $this->error($error->validator->errors()->first());
+            return;
+        }
 
         $product_repository->createProduct($product_info, $categories);
 

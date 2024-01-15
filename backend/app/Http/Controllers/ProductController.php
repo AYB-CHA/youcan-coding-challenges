@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Validation\Contracts\ProductValidationServiceInterface;
 use App\Interfaces\ProductRepositoryInterface;
-use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
     public function __construct(
         private ProductRepositoryInterface $productRepository,
+        private ProductValidationServiceInterface $productValidationService,
     ) {
     }
 
@@ -24,17 +24,8 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string'],
-            'price' => ['required', 'numeric', 'gt:0'],
-            'image' => ['required', 'url'],
-            'categories' => ['nullable', 'array'],
-            'categories.*' => [
-                'numeric',
-                Rule::exists(Category::class, 'id'),
-            ],
-        ]);
+        $validated = $this->productValidationService
+            ->createProductValidation($request->all());
 
         unset($validated['categories']);
 
