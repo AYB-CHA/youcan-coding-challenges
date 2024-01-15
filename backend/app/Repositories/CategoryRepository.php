@@ -3,17 +3,20 @@
 namespace App\Repositories;
 
 use App\Interfaces\CategoryRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 use App\Models\Category;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
-    public function getAllCategories()
+    public function getAllCategories(): Collection
     {
         return Category::all();
     }
 
-    public function createCategory($category_details, $parent_id)
-    {
+    public function createCategory(
+        array $category_details,
+        int $parent_id
+    ): Category {
         $category = new Category;
 
         $category->name = $category_details['name'];

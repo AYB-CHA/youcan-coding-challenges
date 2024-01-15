@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\Validation\Contracts\CategoryValidationServiceInterface;
 use App\Interfaces\CategoryRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,12 +15,12 @@ class CategoryController extends Controller
     ) {
     }
 
-    public function index()
+    public function index(): Collection
     {
         return $this->categoryRepository->getAllCategories();
     }
 
-    public function store(Request $request)
+    public function store(Request $request): array
     {
         $this->categoryValidationService
             ->createCategoryValidation($request->all());

@@ -34,7 +34,7 @@ class CreateProduct extends Command implements PromptsForMissingInput
     /**
      * Execute the console command.
      */
-    public function handle(ProductRepositoryInterface $product_repository)
+    public function handle(ProductRepositoryInterface $product_repository): void
     {
         $product_info = [
             "name" => $this->argument('name'),

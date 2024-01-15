@@ -13,7 +13,7 @@ class UploadController extends Controller
     ) {
     }
 
-    public function storeImage(Request $request)
+    public function storeImage(Request $request): array
     {
         $this->uploadValidationService->storeImageValidation($request->all());
 

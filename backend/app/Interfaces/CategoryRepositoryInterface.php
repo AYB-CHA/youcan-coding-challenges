@@ -2,8 +2,10 @@
 
 namespace App\Interfaces;
 
+use Illuminate\Database\Eloquent\Collection;
+
 interface CategoryRepositoryInterface
 {
-    public function getAllCategories();
-    public function createCategory($category_details, $parent_category);
+    public function getAllCategories(): Collection;
+    public function createCategory(array $category_details, int $parent_category);
 }
