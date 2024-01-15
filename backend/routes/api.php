@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,5 +23,9 @@ Route::controller(CategoryController::class)->prefix('/categories')->group(funct
 
 Route::controller(ProductController::class)->prefix('/products')->group(function () {
     Route::get('/', 'index')->name('products');
-    Route::post('/', 'store')->name('products.store');;
+    Route::post('/', 'store')->name('products.store');
+});
+
+Route::controller(UploadController::class)->prefix('/upload')->group(function () {
+    Route::post('/image', 'storeImage');
 });
