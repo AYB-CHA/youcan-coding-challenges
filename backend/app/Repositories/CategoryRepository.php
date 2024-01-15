@@ -15,7 +15,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function createCategory(
         array $category_details,
-        int $parent_id
+        int|null $parent_id
     ): Category {
         $category = new Category;
 
