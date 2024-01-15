@@ -6,6 +6,7 @@ import axios from '@/lib/axios';
 
 import { AxiosError } from 'axios';
 import { ref } from 'vue';
+import ImageUploadInput from './ImageUploadInput.vue';
 
 defineProps<{
     categories: CategoryType[],
@@ -46,6 +47,14 @@ const createProduct = async () => {
     }
 }
 
+const changeImage = (url: string) => {
+    image.value = url;
+}
+
+const setError = (url: string) => {
+    alert.value = url;
+}
+
 </script>
 
 <template>
@@ -59,8 +68,7 @@ const createProduct = async () => {
             <input v-model="description" class="p-2 mb-4 border block w-full focus:outline-none" />
             <label class="mb-4 block">Price</label>
             <input v-model="price" class="p-2 mb-4 border block w-full focus:outline-none" type="number" />
-            <label class="mb-4 block">Image Url</label>
-            <input v-model="image" class="p-2 mb-4 border block w-full focus:outline-none" type="url" />
+            <ImageUploadInput :change-image="changeImage" :error="setError" />
             <label lass="mb-4 block">Categories</label>
             <select class="my-4 block w-full border p-4" multiple v-model="selectedCategories">
                 <template v-for="category in categories" :key="category.id">
