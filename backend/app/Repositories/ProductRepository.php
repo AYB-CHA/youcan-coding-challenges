@@ -9,7 +9,7 @@ use App\Models\Product;
 class ProductRepository implements ProductRepositoryInterface
 {
     public function getAllProducts(
-        int $category_id,
+        int|null $category_id,
         string $price_sort,
     ): Collection {
         return Product::select()

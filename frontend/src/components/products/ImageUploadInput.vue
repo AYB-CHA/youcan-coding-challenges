@@ -28,7 +28,7 @@ const change = async () => {
         changeImage(data.url);
     } catch (e) {
         error("Something went wrong.");
-        if (e instanceof AxiosError)
+        if (e instanceof AxiosError && e.response?.data.message)
             error(e.response?.data.message);
     }
 }
