@@ -68,7 +68,7 @@ const setError = (url: string) => {
             <input v-model="description" class="p-2 mb-4 border block w-full focus:outline-none" />
             <label class="mb-4 block">Price</label>
             <input v-model="price" class="p-2 mb-4 border block w-full focus:outline-none" type="number" />
-            <ImageUploadInput :change-image="changeImage" :error="setError" />
+            <ImageUploadInput :change-image="changeImage" :error="setError" :currentImage="image" />
             <label lass="mb-4 block">Categories</label>
             <select class="my-4 block w-full border p-4" multiple v-model="selectedCategories">
                 <template v-for="category in categories" :key="category.id">
